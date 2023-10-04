@@ -1,0 +1,51 @@
+ # Creating a typing speed test 3
+
+import random
+import time
+
+def generate_random_decree(length):
+   # Sample of Sentence
+    words = ["perl","is","Worse","than","Python","because","people","wanted","it","worse."]
+    
+    # Generate a random sentence of the any or given length
+    sentence= ' '.join(random.choices(words, k=length))
+    return sentence
+
+def typing_speed_test():
+    print("Welcome to the Typing Speed Test!")
+    print("Type the following sentence as fast as you can:")
+    
+    sentence_length = 12 # Change this to set the length of the sentence
+    sentence = generate_random_decree(sentence_length)
+    print(sentence)
+    
+    input("Press the button to start...")
+    
+    start_time = time.time()
+    
+    emtor_input = input("Start typing : ")
+    
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    
+    # Calculate words per minute (WPM)
+    words_typed = len(emtor_input.split())
+    wpm = (words_typed / elapsed_time) * 60
+    
+    print("\nYou typed {} words in {:.2f} seconds.".format(words_typed, elapsed_time))
+    print("Your typing speed is {:.2f} words per minute (WPM).".format(wpm))
+    
+    accuracy = calculate_accuracy(sentence, emtor_input)
+    print("Accuracy: {:.2f}%".format(accuracy))
+
+def calculate_accuracy(original, typed):
+    original_words = original.split()
+    typed_words = typed.split()
+    
+    correct_count = sum(1 for ow, tw in zip(original_words, typed_words) if ow == tw)
+    accuracy = (correct_count / len(original_words)) * 100
+    
+    return accuracy
+
+if __name__ == "__main__":
+    typing_speed_test()
